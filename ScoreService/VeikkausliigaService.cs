@@ -11,6 +11,7 @@ namespace ScoreService{
     public interface IVeikkausliigaService {
         Task<GameResult> GetResultAsync(int id);
         Task<IList<GameResult>> GetResultsAsync();
+        Task<IEnumerable<ResultGroup>> GetResultGroups();
     }
 
     public class VeikkausliigaService : IVeikkausliigaService {
@@ -41,6 +42,11 @@ namespace ScoreService{
         public async Task<GameResult> GetResultAsync(int id) {
             var results = await GetResultsAsync();
             return results.FirstOrDefault(f => f.Id == id);
+        }
+
+        public async Task<IEnumerable<ResultGroup>> GetResultGroups() {
+            var results = await GetResultsAsync();
+            return results.GroupBy(f => f.MatchDate).Select(f => new ResultGroup(f.Key, f.ToList()));
         }
 
     }

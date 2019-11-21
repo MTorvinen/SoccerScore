@@ -53,18 +53,19 @@
             <div>
             
             </div>
-            <ul class="block match-events">        
-                @foreach (var matchevent in result.MatchEvents) {
-                    <li>
-                        <span>
-                            <img src="@matchevent.EventTypeIcon" alt="event-icon" />
-                        </span>
-                        <span>@matchevent.EventMinute</span>                
-                        <span>@matchevent.Description</span>
-                    </li>
-                }       
-            </ul>
-
+            @if (result.MatchEvents != null && result.MatchEvents.Any()) {
+                <ul class="block match-events">        
+                    @foreach (var matchevent in result.MatchEvents) {
+                        <li>
+                            <span>
+                                <img src="@matchevent.EventTypeIcon" alt="event-icon" />
+                            </span>
+                            <span>@matchevent.EventMinute</span>                
+                            <span>@matchevent.Description</span>
+                        </li>
+                    }       
+                </ul>
+            }            
         </div>
 
     <a href="/" class="d-block mt-4">&laquo; Return to list</a>

@@ -7,16 +7,35 @@
 
 @code {
 
-    bool loading = true;
-    IEnumerable<IGrouping<DateTime,GameResult>> resultsGroups;
+    protected override async Task OnInitializedAsync() {
+        await Initialize();
+    }
 
-    protected override async Task OnInitializedAsync(){
-        var results = await ResultService.GetResultsAsync();
-        if (results != null) {
-            resultsGroups = results.GroupBy(f => f.MatchDate);
-        }
+}
+
+
+@functions{
+
+    bool loading = true;
+    IEnumerable<ResultGroup> _resultsGroups;
+    IEnumerable<ResultGroup> resultsGroups;
+
+    protected async Task Initialize() {
+        _resultsGroups = await ResultService.GetResultGroups();
+        resultsGroups = _resultsGroups;
         loading = false;
-        var m = query;
+    }
+
+    string _Query;
+    string Query {
+        get {
+            return _Query;
+        }
+        set {
+            resultsGroups = _resultsGroups;
+            resultsGroups = resultsGroups.FilterByTeam(value);
+            _Query = value;
+        }
     }
 
 }
@@ -28,13 +47,15 @@
         <img src="/img/ajax-loader.gif" alt="loading..." />
     </div>
 }else{
-    @if (resultsGroups != null) {
+    @if (_resultsGroups != null) {
+
+        <input type="text" @bind-value="Query" @bind-value:event="oninput" class="filter-input" placeholder="Filter by team name" />
 
         <div class="results-list">        
             @foreach (var group in resultsGroups) {
                 <div class="result-group">
-                    <h2 class="text-center">@group.Key.ToString("d.M.yyyy")</h2>
-                    @foreach (var match in group) {
+                    <h2 class="text-center">@group.MatchDate.ToString("d.M.yyyy")</h2>
+                    @foreach (var match in group.Results) {
                         <a href="/details/@match.Id" class="result-item">
                             <span>@match.HomeTeam?.Name <strong>@match.HomeGoals</strong></span>
                             <span><strong>@match.AwayGoals</strong> @match.AwayTeam?.Name</span>                         

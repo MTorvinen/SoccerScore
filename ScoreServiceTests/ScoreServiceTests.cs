@@ -30,5 +30,13 @@ namespace ScoreServiceTests{
             Assert.False(namesmissing);
         }
 
+        [Test]
+        public async Task FilterByTeam() {
+            var results = await Service.GetResultGroups();
+            results = results.FilterByTeam("jaro");
+            var m = results;
+
+        }
+
     }
 }

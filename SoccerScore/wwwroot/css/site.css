@@ -36,16 +36,14 @@ main {
   padding: 30px;
   background: #fff;
 }
-.filter-panel {
-  padding: 0 0 15px 0;
-  border-bottom: 1px solid #ddd;
-}
-.filter-panel input {
+.filter-input {
   width: 100%;
   border: 1px solid #222;
   height: 40px;
   padding: 0 10px;
   line-height: 40px;
+  text-align: center;
+  margin-bottom: 15px;
 }
 .result-group {
   border: 1px solid #ddd;
