@@ -1,0 +1,175 @@
+@import "bootstrap.min.css";
+
+@black: #222;
+
+.wrap{
+max-width:1000px;
+margin:auto;
+}
+
+.text-center{ text-align:center; }
+
+
+body {
+position: relative;
+font-family: Verdana;
+background:#eee;
+}
+
+h1,h2,h3,h4,h5,h6{
+font-weight:bold;
+margin:0 0 15px 0;
+}
+
+h1 {
+font-size:30px;
+}
+
+h2 {
+font-size: 16px;
+}
+
+header {
+min-height: 50px;
+background: @black;
+}
+
+main{
+.wrap;
+padding:30px;
+background:#fff;
+}
+
+.filter-panel{
+padding:0 0 15px 0;
+border-bottom:1px solid #ddd;
+
+	 input{
+	 width:100%;
+	 border:1px solid @black;
+	 height:40px;
+	 padding:0 10px;
+	 line-height:40px;
+	 }
+
+}
+
+.result-group{
+	border:1px solid #ddd;
+	margin-bottom:30px;
+	
+	&:last-child{ margin-bottom:0; }
+
+	h2{
+		padding:10px;
+		background:@black;
+		color:#fff;
+		margin:0;
+	}
+
+	.result-item{
+	display:block;
+	padding:10px;
+	color:#000;
+	text-decoration:none;
+	border-bottom:1px solid #ddd;
+	display:flex;
+
+		span{
+		width:50%;
+		padding-left:10px;
+		}
+
+		span:first-child{
+		text-align:right;
+		padding:0 10px 0 0;
+		position:relative;
+			
+			&:after{
+			content:"";
+			height:2px;
+			width:8px;
+			background:#000;
+			position:absolute;
+			top:50%;
+			right:-4px;
+			}
+			
+		}
+
+		&:last-child{ border:0; }
+		&:hover{ background:#eee; }
+
+	}
+
+}
+
+.match-details {
+
+	.block {
+		border: 1px solid #ddd;
+	}
+
+	.match-info {
+		margin-bottom:30px; 
+
+		> div > :first-child {
+			position: relative;
+
+			&:after {
+				content: "";
+				width: 30px;
+				height: 10px;
+				background: #000;
+				position: absolute;
+				top: 50%;
+				right: -15px;
+			}
+		}
+
+		img{
+		max-width:200px;
+		padding:10px 0;
+		}
+
+		.team-score {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			font-size: 100px;
+		}
+	}
+
+	.match-events {
+	list-style:none;
+	padding:0;
+	margin:0;
+
+		li{
+		border-bottom:1px solid #ddd;
+		display:flex;
+			
+			span{
+			width:72px;
+			height:52px;
+			text-align:center;
+			flex-shrink:1;
+			border-right:1px solid #ddd;						
+			line-height:52px;
+			img{
+			max-width:32px;
+			}
+			}
+
+			span:last-child{
+			width:auto;
+			flex-grow:1;
+			border:0;
+			text-align:left;
+			padding:0 10px;
+			}
+
+		}
+		li:last-child{ border:0; }
+	}
+}

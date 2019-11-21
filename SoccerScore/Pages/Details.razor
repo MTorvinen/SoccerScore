@@ -1,0 +1,80 @@
+﻿@page "/details/{id:int}"
+
+@using ScoreService
+@inject ScoreService.IVeikkausliigaService ResultService
+
+@code {
+    [Parameter]
+    public int id { get; set; }
+
+    bool loading = true;
+    GameResult result;
+
+
+    protected override async Task OnInitializedAsync(){
+        result = await ResultService.GetResultAsync(id);        
+        loading = false;        
+    }
+}
+
+@if (loading) {
+    <div class="text-center">
+        <img src="/img/ajax-loader.gif" alt="loading..." />
+    </div>
+} else { 
+    @if (result != null) {
+
+        <div class="match-details">
+            <h1>@result.HomeTeam.Name - @result.AwayTeam.Name </h1>
+            <div class="mb-4">Game played: @result.MatchDate.ToString("d.M.yyyy HH:mm")</div>
+
+            <div class="block match-info">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="row">
+                            <div class="col-sm-6 text-center">
+                                <img src="@result.HomeTeam.LogoUrl" alt="logo-@result.HomeTeam.Name" />
+                                <h2>@result.HomeTeam.Name</h2>
+                            </div>                
+                            <div class="col-sm-6 team-score"><strong>@result.HomeGoals</strong></div>
+                        </div>            
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="row">
+                            <div class="col-sm-6 team-score"><strong class="team-score">@result.AwayGoals</strong></div>
+                            <div class="col-sm-6 text-center">
+                                <img src="@result.AwayTeam.LogoUrl" alt="logo-@result.AwayTeam.Name" />
+                                <h2>@result.AwayTeam.Name</h2>
+                            </div>                                
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+            
+            </div>
+            <ul class="block match-events">        
+                @foreach (var matchevent in result.MatchEvents) {
+                    <li>
+                        <span>
+                            <img src="@matchevent.EventTypeIcon" alt="event-icon" />
+                        </span>
+                        <span>@matchevent.EventMinute</span>                
+                        <span>@matchevent.Description</span>
+                    </li>
+                }       
+            </ul>
+
+        </div>
+
+    <a href="/" class="d-block mt-4">&laquo; Return to list</a>
+
+    } else { 
+        <h2>Error: Result not found.</h2>
+    }    
+}
+
+
+
+
+

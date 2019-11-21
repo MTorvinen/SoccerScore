@@ -1,0 +1,49 @@
+﻿@page "/"
+
+@using ScoreService
+@using System.Linq
+
+@inject ScoreService.IVeikkausliigaService ResultService
+
+@code {
+
+    bool loading = true;
+    IEnumerable<IGrouping<DateTime,GameResult>> resultsGroups;
+
+    protected override async Task OnInitializedAsync(){
+        var results = await ResultService.GetResultsAsync();
+        if (results != null) {
+            resultsGroups = results.GroupBy(f => f.MatchDate);
+        }
+        loading = false;
+        var m = query;
+    }
+
+}
+
+<h1>Veikkausliiga results</h1>
+
+@if (loading){
+    <div class="text-center">
+        <img src="/img/ajax-loader.gif" alt="loading..." />
+    </div>
+}else{
+    @if (resultsGroups != null) {
+
+        <div class="results-list">        
+            @foreach (var group in resultsGroups) {
+                <div class="result-group">
+                    <h2 class="text-center">@group.Key.ToString("d.M.yyyy")</h2>
+                    @foreach (var match in group) {
+                        <a href="/details/@match.Id" class="result-item">
+                            <span>@match.HomeTeam?.Name <strong>@match.HomeGoals</strong></span>
+                            <span><strong>@match.AwayGoals</strong> @match.AwayTeam?.Name</span>                         
+                        </a>                    
+                    }
+                </div>            
+            }
+        </div>
+    } else { 
+        <h2>Error: No results available.</h2>
+    }
+}
