@@ -50,6 +50,7 @@ namespace SoccerScore
                 endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/_Host");
             });
+
         }
     }
 }

@@ -7,7 +7,12 @@ using System;
 namespace ScoreServiceTests{
     public class VeikkausliigaServiceTests{
 
-        private IVeikkausliigaService Service = new VeikkausliigaService();        
+        private IVeikkausliigaService Service = new VeikkausliigaService();
+
+        [SetUp]
+        public void InitializeService() {
+            Assert.IsNotEmpty(Service.ApiUrl);
+        }
 
         [Test]
         public async Task GetResultsAsync(){

@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.Extensions.Configuration;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -12,11 +14,22 @@ namespace ScoreService{
         Task<GameResult> GetResultAsync(int id);
         Task<IList<GameResult>> GetResultsAsync();
         Task<IEnumerable<ResultGroup>> GetResultGroups();
+        public string ApiUrl { get; }
     }
 
     public class VeikkausliigaService : IVeikkausliigaService {
 
-        private const string ApiUrl = "https://functionapp2018071101324.blob.core.windows.net/data/matches_latest.json";
+        public VeikkausliigaService() {
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "appsettings.json");
+            if (File.Exists(path)) {
+                var configurationBuilder = new ConfigurationBuilder();
+                configurationBuilder.AddJsonFile(path, false);
+                var config = configurationBuilder.Build();
+                ApiUrl = config["ApiUrl"];
+            }
+        }
+
+        public string ApiUrl { get; private set; }
 
         private IList<GameResult> _results;
 

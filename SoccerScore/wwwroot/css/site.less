@@ -9,7 +9,6 @@ margin:auto;
 
 .text-center{ text-align:center; }
 
-
 body {
 position: relative;
 font-family: Verdana;
@@ -29,9 +28,27 @@ h2 {
 font-size: 16px;
 }
 
+.bg-dark {
+	/* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#45484d+0,000000+100;Black+3D+%231 */
+	background: rgb(69,72,77); /* Old browsers */
+	background: -moz-linear-gradient(top, rgba(69,72,77,1) 0%, rgba(0,0,0,1) 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(top, rgba(69,72,77,1) 0%,rgba(0,0,0,1) 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to bottom, rgba(69,72,77,1) 0%,rgba(0,0,0,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', endColorstr='#000000',GradientType=0 ); /* IE6-9 */
+}
+
+.bg-light {
+/* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#ffffff+0,f1f1f1+50,e1e1e1+51,f6f6f6+100;White+Gloss+%231 */
+background: rgb(255,255,255); /* Old browsers */
+background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(241,241,241,1) 50%, rgba(225,225,225,1) 51%, rgba(246,246,246,1) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(241,241,241,1) 50%,rgba(225,225,225,1) 51%,rgba(246,246,246,1) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom, rgba(255,255,255,1) 0%,rgba(241,241,241,1) 50%,rgba(225,225,225,1) 51%,rgba(246,246,246,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f6f6f6',GradientType=0 ); /* IE6-9 */
+}
+
 header {
-min-height: 50px;
-background: @black;
+	min-height: 50px;
+	.bg-dark;
 }
 
 main{
@@ -42,7 +59,8 @@ background:#fff;
 
 .filter-input {
 	width: 100%;
-	border: 1px solid @black;
+	border:1px solid @black;
+	box-shadow:inset 2px 2px 4px fade(#000,30%);
 	height: 40px;
 	padding: 0 10px;
 	line-height: 40px;
@@ -50,54 +68,58 @@ background:#fff;
 	margin-bottom:15px;
 }
 
-.result-group{
-	border:1px solid #ddd;
-	margin-bottom:30px;
-	
-	&:last-child{ margin-bottom:0; }
+.result-group {
+	border: 1px solid #ddd;
+	margin-bottom: 30px;
 
-	h2{
-		padding:10px;
-		background:@black;
-		color:#fff;
-		margin:0;
+	&:last-child {
+		margin-bottom: 0;
 	}
 
-	.result-item{
-	display:block;
-	padding:10px;
-	color:#000;
-	text-decoration:none;
-	border-bottom:1px solid #ddd;
-	display:flex;
+	h2 {
+		.bg-dark;
+		padding: 10px;
+		color: #fff;
+		margin: 0;
+	}
 
-		span{
-		width:50%;
-		padding-left:10px;
+	.result-item {
+		display: block;
+		padding: 10px;
+		color: #000;
+		text-decoration: none;
+		border-bottom: 1px solid #ddd;
+		display: flex;
+
+		span {
+			width: 50%;
+			padding-left: 10px;
 		}
 
-		span:first-child{
-		text-align:right;
-		padding:0 10px 0 0;
-		position:relative;
-			
-			&:after{
-			content:"";
-			height:2px;
-			width:8px;
-			background:#000;
-			position:absolute;
-			top:50%;
-			right:-4px;
+		span:first-child {
+			text-align: right;
+			padding: 0 10px 0 0;
+			position: relative;
+
+			&:after {
+				content: "";
+				height: 2px;
+				width: 8px;
+				background: #000;
+				position: absolute;
+				top: 50%;
+				right: -4px;
 			}
-			
 		}
 
-		&:last-child{ border:0; }
-		&:hover{ background:#eee; }
+		&:last-child {
+			border: 0;
+		}
 
+		&:hover {
+			.bg-light;
+		}
 	}
-
 }
 
 .match-details {
@@ -107,7 +129,7 @@ background:#fff;
 	}
 
 	.match-info {
-		margin-bottom:30px; 
+		margin-bottom: 30px;
 
 		> div > :first-child {
 			position: relative;
@@ -123,9 +145,9 @@ background:#fff;
 			}
 		}
 
-		img{
-		max-width:200px;
-		padding:10px 0;
+		img {
+			max-width: 200px;
+			padding: 10px 0;
 		}
 
 		.team-score {
@@ -137,35 +159,42 @@ background:#fff;
 	}
 
 	.match-events {
-	list-style:none;
-	padding:0;
-	margin:0;
+		list-style: none;
+		padding: 0;
+		margin: 0;
 
-		li{
-		border-bottom:1px solid #ddd;
-		display:flex;
-			
-			span{
-			width:72px;
-			height:52px;
-			text-align:center;
-			flex-shrink:1;
-			border-right:1px solid #ddd;						
-			line-height:52px;
-			img{
-			max-width:32px;
-			}
-			}
+		li {
+			border-bottom: 1px solid #ddd;
+			display: flex;
 
-			span:last-child{
-			width:auto;
-			flex-grow:1;
-			border:0;
-			text-align:left;
-			padding:0 10px;
+			span {
+				width: 72px;
+				height: 52px;
+				text-align: center;
+				flex-shrink: 1;
+				border-right: 1px solid #ddd;
+				line-height: 52px;
+
+				img {
+					max-width: 32px;
+				}
 			}
 
+			span:last-child {
+				width: auto;
+				flex-grow: 1;
+				border: 0;
+				text-align: left;
+				padding: 0 10px;
+			}
 		}
-		li:last-child{ border:0; }
+
+		li:last-child {
+			border: 0;
+		}
+
+		li:hover {
+			.bg-light;
+		}
 	}
 }
